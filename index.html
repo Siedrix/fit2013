@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>Ejemplo del curso</title>
+	<style>
+		table.grid td {
+		    width: 20px;
+		    height: 20px;
+		    border: 1px dotted #999;
+		    background-color: #eeeeee;
+		}	
+	</style>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/grid.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		window.client = io.connect(window.location.href);
+
+		var grid = new Grid();
+		grid.render( $('#grid') );
+
+		client.on('pintar', function(data){
+			grid.pintar(data.x, data.y, data.color);
+		});
+	});
+	</script>
+</head>
+<body>
+	<h1>Ejemplo del curso</h1>
+	<p>https://gist.github.com/Siedrix/6903519</p>
+	<p>Color: <input id="color" type="text" value="#000000"/></p>
+	<div id="grid"></div>
+</body>
+</html>
